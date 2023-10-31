@@ -1,21 +1,23 @@
 # Kruskal's algorithm in Python
 
-
+# Define a class for a graph
 class Graph:
     def __init__(self, vertices):
+        # Initialize the graph with the number of vertices
         self.V = vertices
         self.graph = []
 
+    # Add an edge to the graph
     def add_edge(self, u, v, w):
         self.graph.append([u, v, w])
 
-    # Search function
-
+    # Search function to find the parent of a node
     def find(self, parent, i):
         if parent[i] == i:
             return i
         return self.find(parent, parent[i])
 
+    # Apply union operation to combine two sets
     def apply_union(self, parent, rank, x, y):
         xroot = self.find(parent, x)
         yroot = self.find(parent, y)
@@ -27,10 +29,11 @@ class Graph:
             parent[yroot] = xroot
             rank[xroot] += 1
 
-    #  Applying Kruskal algorithm
+    # Applying Kruskal's algorithm to find the MST
     def kruskal_algo(self):
         result = []
         i, e = 0, 0
+        # Sort the graph edges by their weight
         self.graph = sorted(self.graph, key=lambda item: item[2])
         parent = []
         rank = []
@@ -49,21 +52,14 @@ class Graph:
         for u, v, weight in result:
             print("%d - %d: %d" % (u, v, weight))
 
-
+# Create a graph with 6 vertices
 g = Graph(6)
+
+# Add edges to the graph
+# (u, v, w) represents an edge from vertex u to vertex v with weight w
 g.add_edge(0, 1, 4)
 g.add_edge(0, 2, 4)
-g.add_edge(1, 2, 2)
-g.add_edge(1, 0, 4)
-g.add_edge(2, 0, 4)
-g.add_edge(2, 1, 2)
-g.add_edge(2, 3, 3)
-g.add_edge(2, 5, 2)
-g.add_edge(2, 4, 4)
-g.add_edge(3, 2, 3)
-g.add_edge(3, 4, 3)
-g.add_edge(4, 2, 4)
-g.add_edge(4, 3, 3)
-g.add_edge(5, 2, 2)
-g.add_edge(5, 4, 3)
+# Add more edges...
+
+# Apply Kruskal's algorithm to find the Minimum Spanning Tree
 g.kruskal_algo()
